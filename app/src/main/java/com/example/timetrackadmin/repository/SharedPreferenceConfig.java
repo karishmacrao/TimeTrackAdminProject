@@ -62,10 +62,18 @@ public class SharedPreferenceConfig {
     }
 
     public String readToken() {
-        return sharedPreferences.getString("token","");
+        return sharedPreferences.getString("token", "");
     }
 
     public void writeToken(String token) {
-        editor.putString("token",token).commit();
+        editor.putString("token", token).commit();
+    }
+
+    public String readLastName() {
+        return sharedPreferences.getString("last_name", "");
+    }
+
+    public void writeLastName(String name) {
+        editor.putString("last_name", name).commit();
     }
 }

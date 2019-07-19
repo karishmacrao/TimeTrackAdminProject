@@ -23,6 +23,8 @@ import com.google.android.material.navigation.NavigationView;
 public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
+    DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,7 @@ public class HomeActivity extends AppCompatActivity implements
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle = new
                 ActionBarDrawerToggle(this, drawer, toolbar,
@@ -41,13 +43,22 @@ public class HomeActivity extends AppCompatActivity implements
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View headview= navigationView.getHeaderView(0);
+        View headview = navigationView.getHeaderView(0);
 //        getSupportActionBar().setTitle("Hello! "+ SharedPreferenceConfig.getInstance().readFirstName());
-        TextView firstname = (TextView)headview.findViewById(R.id.name_navhead);
-        TextView email = (TextView)headview.findViewById(R.id.email_navhead);
+        TextView firstname = (TextView) headview.findViewById(R.id.name_navhead);
+        TextView email = (TextView) headview.findViewById(R.id.email_navhead);
 
         firstname.setText(SharedPreferenceConfig.getInstance().readFirstName());
         email.setText(SharedPreferenceConfig.getInstance().readUserEmail());
+
+        if(savedInstanceState==null)
+        {
+            getSupportFragmentManager().beginTransaction().replace(
+                    R.id.fragment_container,new FragmentHome()).commit();
+            navigationView.setCheckedItem(R.id.home_option);
+        }
+
+
 
     }
 
@@ -85,6 +96,24 @@ public class HomeActivity extends AppCompatActivity implements
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        return false;
+        switch (menuItem.getItemId()) {
+            case R.id.home_option:
+                getSupportFragmentManager().beginTransaction().replace(
+                        R.id.fragment_container, new FragmentHome()).commit();
+                break;
+            case R.id.my_account:
+                getSupportFragmentManager().beginTransaction().replace(
+                        R.id.fragment_container, new FragmentMyAccount()).commit();
+                break;
+            case R.id.user_option:
+                getSupportFragmentManager().beginTransaction().replace(
+                        R.id.fragment_container, new FragmentUsers()).commit();
+                break;
+            case R.id.project_option:
+                break;
+
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
