@@ -31,8 +31,8 @@ public interface ConnectionAPI {
     @Headers("authorization:")
     Call<User> getUser(@HeaderMap HashMap<String, String> header, @Query("id=") long id);
 
-    @PUT("update/{username}")
-    Call<User> updateUser(@Path("username") String username, @Body User user);
+    @PUT("{id}")
+    Call<User> updateUser(@HeaderMap HashMap<String, String> header,@Path("id") String id, @Body User user);
 
     @DELETE("delete/{id}")
     Call<User> deleteUser(@Path("id") int id);

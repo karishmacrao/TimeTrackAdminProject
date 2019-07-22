@@ -17,6 +17,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.HashMap;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -28,7 +30,8 @@ public class FragmentMyAccount extends Fragment {
 
     TextInputEditText FName, LName, Email, Pass;
     MaterialButton myUpdateBtn;
-    String username;
+    String username,id;
+    SharedPreferenceConfig obj = SharedPreferenceConfig.getInstance();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,12 +48,12 @@ public class FragmentMyAccount extends Fragment {
         Email = (TextInputEditText) view.findViewById(R.id.myEmail);
         Pass = (TextInputEditText) view.findViewById(R.id.myPass);
         myUpdateBtn = (MaterialButton) view.findViewById(R.id.myUpdate);
-        SharedPreferenceConfig obj = SharedPreferenceConfig.getInstance();
+
         FName.setText(obj.readFirstName());
         LName.setText(obj.readLastName());
         Email.setText(obj.readUserEmail());
         username = obj.readUserEmail();
-
+        id =obj.readId();
         myUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +95,10 @@ public class FragmentMyAccount extends Fragment {
             userObj.setLastName(lastname);
             userObj.setEmail(companyemail);
             userObj.setPassword(password);
-            Call<User> call = api.updateUser(username, userObj);
+            userObj.setToken(obj.readToken());
+            HashMap<String, String> header = new HashMap<>();
+            header.put("authorization", obj.readToken());
+            Call<User> call = api.updateUser(header, id, userObj);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {

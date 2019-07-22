@@ -76,4 +76,14 @@ public class SharedPreferenceConfig {
     public void writeLastName(String name) {
         editor.putString("last_name", name).commit();
     }
+
+    public void writeId(String id) {
+        editor.putString("id", id).commit();
+    }
+
+    public String readId() {
+        return sharedPreferences.getString("id", "");
+    }
+
+
 }
