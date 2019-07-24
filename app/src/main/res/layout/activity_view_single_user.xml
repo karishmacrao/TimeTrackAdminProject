@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".view.ViewSingleUser">
+
+    <ImageView
+        android:id="@+id/suv_pic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:autofillHints="@string/app_name"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_account_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/suv_headid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintStart_toEndOf="@id/suv_pic"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/suv_nameid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/regfname"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/suv_emailid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/regfname"
+            app:layout_constraintTop_toBottomOf="@id/suv_nameid" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/suv_designationlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/designation"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/suv_designation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="@string/trainee"
+            app:layout_constraintStart_toEndOf="@id/suv_designationlabel"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/suv_companylabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/company"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/suv_designationlabel" />
+
+        <TextView
+            android:id="@+id/suv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="@string/tarento_india"
+            app:layout_constraintStart_toEndOf="@id/suv_companylabel"
+            app:layout_constraintTop_toBottomOf="@id/suv_designation" />
+
+        <TextView
+            android:id="@+id/suv_locationlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/location"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/suv_companylabel" />
+
+        <TextView
+            android:id="@+id/suv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Koramangala,Bangalore"
+            app:layout_constraintStart_toEndOf="@id/suv_locationlabel"
+            app:layout_constraintTop_toBottomOf="@id/suv_company" />
+
+        <TextView
+            android:id="@+id/suv_Contactlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Contact: "
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/suv_locationlabel" />
+
+        <TextView
+            android:id="@+id/suv_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="0987456321"
+            app:layout_constraintStart_toEndOf="@id/suv_Contactlabel"
+            app:layout_constraintTop_toBottomOf="@id/suv_location" />
+
+        <TextView
+            android:id="@+id/suv_teamlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Team: "
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/suv_Contactlabel" />
+
+        <TextView
+            android:id="@+id/suv_team"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Digital"
+            app:layout_constraintStart_toEndOf="@id/suv_teamlabel"
+            app:layout_constraintTop_toBottomOf="@id/suv_contact" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

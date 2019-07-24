@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                     SPCObject.writeFirstName(localUser.getFirstName());
                     SPCObject.writeLastName(localUser.getLastName());
                     SPCObject.writeUserEmail(localUser.getEmail());
-                    SPCObject.writeToken("Bearer" + userOb.getToken());
+                    SPCObject.writeToken("Bearer " + userOb.getToken());
                     SPCObject.writeId(localUser.getId());
                     result.postValue(true);
                     toastText("Logged in successfully");

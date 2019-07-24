@@ -30,7 +30,8 @@ public class FragmentMyAccount extends Fragment {
 
     TextInputEditText FName, LName, Email, Pass;
     MaterialButton myUpdateBtn;
-    String username,id;
+    String username, id;
+    View view;
     SharedPreferenceConfig obj = SharedPreferenceConfig.getInstance();
 
     @Override
@@ -42,7 +43,7 @@ public class FragmentMyAccount extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_myaccount, container, false);
+        view = inflater.inflate(R.layout.fragment_myaccount, container, false);
         FName = (TextInputEditText) view.findViewById(R.id.myFNameId);
         LName = (TextInputEditText) view.findViewById(R.id.myLNameId);
         Email = (TextInputEditText) view.findViewById(R.id.myEmail);
@@ -53,7 +54,7 @@ public class FragmentMyAccount extends Fragment {
         LName.setText(obj.readLastName());
         Email.setText(obj.readUserEmail());
         username = obj.readUserEmail();
-        id =obj.readId();
+        id = obj.readId();
         myUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +90,7 @@ public class FragmentMyAccount extends Fragment {
             Pass.setError("Require's a valid Password");
         } else {
             ConnectionAPI api = ServerConnection.getConnection();
-            User userObj = new User();
+            final User userObj = new User();
 
             userObj.setFirstName(firstname);
             userObj.setLastName(lastname);
@@ -104,15 +105,20 @@ public class FragmentMyAccount extends Fragment {
                 public void onResponse(Call<User> call, Response<User> response) {
                     Log.d("Response : ", response.toString());
                     if (response.isSuccessful()) {
-
+                        SharedPreferenceConfig spc = SharedPreferenceConfig.getInstance();
+                        spc.writeUserEmail(userObj.getEmail());
+                        spc.writeFirstName(userObj.getFirstName());
+                        spc.writeLastName(userObj.getLastName());
+                        spc.writeUserPassword(userObj.getPassword());
+                        Toast.makeText(view.getContext(), "Saved successfully.", Toast.LENGTH_LONG).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     Log.e("ERROR: ", t.getMessage());
+                    Toast.makeText(view.getContext(), "Failed to update.", Toast.LENGTH_LONG).show();
                 }
-
             });
         }
     }

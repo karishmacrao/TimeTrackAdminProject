@@ -85,7 +85,9 @@ public class HomeActivity extends AppCompatActivity implements
         int id = item.getItemId();
         switch (id) {
             case R.id.logout:
-                SharedPreferenceConfig.getInstance().writeLoginStatus(false);
+                SharedPreferenceConfig spc = SharedPreferenceConfig.getInstance();
+                spc.writeLoginStatus(false);
+                spc.writeToken("");
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;

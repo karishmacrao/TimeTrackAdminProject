@@ -1,7 +1,9 @@
 package com.example.timetrackadmin.repository;
 
+import com.example.timetrackadmin.model.UsersList;
 import com.example.timetrackadmin.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import okhttp3.RequestBody;
@@ -27,16 +29,16 @@ public interface ConnectionAPI {
     @Headers("Content-Type:application/json")
     Call<User> loginUser(@Body RequestBody requestBody);
 
-    @GET(":id?")
-    @Headers("authorization:")
-    Call<User> getUser(@HeaderMap HashMap<String, String> header, @Query("id=") long id);
+    @GET("{id}")
+    Call<User> getUser(@HeaderMap HashMap<String, String> header, @Path("id") String id);
 
     @PUT("{id}")
-    Call<User> updateUser(@HeaderMap HashMap<String, String> header,@Path("id") String id, @Body User user);
+    Call<User> updateUser(@HeaderMap HashMap<String, String> header, @Path("id") String id, @Body User user);
 
     @DELETE("delete/{id}")
-    Call<User> deleteUser(@Path("id") int id);
+    Call<User> deleteUser(@Path("id") String id);
 
-
+    @GET("all")
+    Call<ArrayList<UsersList>> getUsers(@HeaderMap HashMap<String, String> header);
 
 }
