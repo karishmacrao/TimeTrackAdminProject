@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -28,22 +29,41 @@ import retrofit2.Response;
 public class FragmentUsers extends androidx.fragment.app.Fragment {
     SharedPreferenceConfig spc = SharedPreferenceConfig.getInstance();
     View view;
+    SearchView sv;
+    UsersAdapter usersAdapter;
     ArrayList<UsersList> usersListResponse = new ArrayList<>();
     LinearLayoutManager mLayoutManager;
     RecyclerView userRecyclerView;
+    ConnectionAPI api;
+    HashMap<String, String> header;
 
-    @Nullable
+     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_users, container, false);
-
         userRecyclerView = (RecyclerView) view.findViewById(R.id.users_recyclerview);
         userRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         userRecyclerView.setHasFixedSize(true);
+        api = ServerConnection.getConnection();
+        getAllUsers();
+        sv=(SearchView)view.findViewById(R.id.mSearch);
+         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+             @Override
+             public boolean onQueryTextSubmit(String query) {
+                 return false;
+             }
 
-        final ArrayList<UsersList> itemArrayList = new ArrayList<>();
-        ConnectionAPI api = ServerConnection.getConnection();
-        HashMap<String, String> header = new HashMap<>();
+             @Override
+             public boolean onQueryTextChange(String newText) {
+                 usersAdapter.getFilter().filter(newText);
+                 return false;
+             }
+         });
+        return view;
+    }
+
+    public void getAllUsers() {
+        header = new HashMap<>();
         header.put("authorization", spc.readToken());
         Call<ArrayList<UsersList>> call = api.getUsers(header);
         call.enqueue(new Callback<ArrayList<UsersList>>() {
@@ -54,6 +74,7 @@ public class FragmentUsers extends androidx.fragment.app.Fragment {
                 Log.d("MM", "onResponse() called with: call = [" + call + "], response = [" + response + "]");
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
+                        usersListResponse.clear();
                         usersListResponse.addAll(response.body());
                     }
                     setDataInRecyclerView();
@@ -66,16 +87,19 @@ public class FragmentUsers extends androidx.fragment.app.Fragment {
 
             }
         });
-        return view;
     }
 
     private void setDataInRecyclerView() {
         mLayoutManager = new LinearLayoutManager(view.getContext());
         userRecyclerView.setLayoutManager(mLayoutManager);
         // call the constructor of UsersAdapter to send the reference and data to Adapter
-        UsersAdapter usersAdapter = new UsersAdapter(usersListResponse, view.getContext());
+        usersAdapter = new UsersAdapter(usersListResponse, view.getContext());
         userRecyclerView.setAdapter(usersAdapter); // set the Adapter to RecyclerView
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        getAllUsers();
+    }
 }

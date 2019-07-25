@@ -17,14 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.ViewSingleUser"></activity>
-        <activity
-            android:name=".view.ManageAccountActivity"
-            android:label="@string/title_activity_manage_account" />
+
         <activity
             android:name=".view.RegisterActivity"
             android:parentActivityName=".view.LoginActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.LoginActivity" />
+
         <activity
             android:name=".view.SplashScreenActivity"
             android:theme="@style/SplashTheme">

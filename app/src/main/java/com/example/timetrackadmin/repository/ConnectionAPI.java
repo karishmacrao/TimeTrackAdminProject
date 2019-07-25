@@ -36,7 +36,7 @@ public interface ConnectionAPI {
     Call<User> updateUser(@HeaderMap HashMap<String, String> header, @Path("id") String id, @Body User user);
 
     @DELETE("delete/{id}")
-    Call<User> deleteUser(@Path("id") String id);
+    Call<User> deleteUser(@HeaderMap HashMap<String, String> header,@Path("id") String id);
 
     @GET("all")
     Call<ArrayList<UsersList>> getUsers(@HeaderMap HashMap<String, String> header);

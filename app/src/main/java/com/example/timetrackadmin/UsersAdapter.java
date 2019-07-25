@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.example.timetrackadmin.model.UsersList;
 import com.example.timetrackadmin.view.ViewSingleUser;
@@ -17,15 +19,16 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> implements Filterable {
 
     Context context;
-
-    final ArrayList<UsersList> lists = new ArrayList<>();
+    FilterUsers filter;
+    ArrayList<UsersList> lists = new ArrayList<>();
+    ArrayList<UsersList> searchedUsers = new ArrayList<>();
 
     public UsersAdapter(ArrayList<UsersList> usersList, Context context) {
 
-//        this.usersList = usersList;
+        searchedUsers = usersList;
 
         if (usersList != null && usersList.size() > 0) {
             lists.addAll(usersList);
@@ -48,14 +51,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         holder.myFirstName.setText(item.getFirstName());
 
 
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ViewSingleUser.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", lists.get(position).getId());
-                Log.d("MMM",lists.get(position).getId());
+                Log.d("MMM", lists.get(position).getId());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
@@ -79,4 +81,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         }
     }
 
+    @Override
+    public Filter getFilter() {
+        if (filter == null) {
+            filter = new FilterUsers(searchedUsers, this);
+        }
+
+        return filter;
+    }
 }
