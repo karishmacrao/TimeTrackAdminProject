@@ -41,8 +41,7 @@ public class FilterUsers extends Filter {
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
         adapter.searchedUsers = (ArrayList<UsersList>) results.values;
-
-        //REFRESH
         adapter.notifyDataSetChanged();
     }
 }
+

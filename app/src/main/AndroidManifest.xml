@@ -16,14 +16,13 @@
         android:roundIcon="@drawable/splashback"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ViewSingleUser"></activity>
-
+        <activity android:name=".view.AddCompanyActivity"></activity>
+        <activity android:name=".view.ViewSingleUser" />
         <activity
             android:name=".view.RegisterActivity"
             android:parentActivityName=".view.LoginActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.LoginActivity" />
-
         <activity
             android:name=".view.SplashScreenActivity"
             android:theme="@style/SplashTheme">

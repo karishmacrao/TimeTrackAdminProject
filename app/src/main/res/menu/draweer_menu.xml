@@ -19,9 +19,9 @@
             android:icon="@drawable/ic_user_icon"
             android:title="Users" />
         <item
-            android:id="@+id/project_option"
+            android:id="@+id/company_option"
             android:icon="@drawable/ic_project_icon"
-            android:title="Projects" />
+            android:title="Comapany" />
 
     </group>
 

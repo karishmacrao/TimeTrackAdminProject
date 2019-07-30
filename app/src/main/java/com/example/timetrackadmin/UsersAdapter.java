@@ -31,7 +31,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         searchedUsers = usersList;
 
         if (usersList != null && usersList.size() > 0) {
-            lists.addAll(usersList);
+            lists.addAll(searchedUsers);
         }
         this.context = context;
     }

@@ -1,7 +1,6 @@
 package com.example.timetrackadmin.view;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -51,13 +50,11 @@ public class HomeActivity extends AppCompatActivity implements
         firstname.setText(SharedPreferenceConfig.getInstance().readFirstName());
         email.setText(SharedPreferenceConfig.getInstance().readUserEmail());
 
-        if(savedInstanceState==null)
-        {
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(
-                    R.id.fragment_container,new FragmentHome()).commit();
+                    R.id.fragment_container, new FragmentHome()).commit();
             navigationView.setCheckedItem(R.id.home_option);
         }
-
 
 
     }
@@ -91,6 +88,9 @@ public class HomeActivity extends AppCompatActivity implements
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;
+            case R.id.add_user:
+                startActivity(new Intent(this, RegisterActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -111,7 +111,9 @@ public class HomeActivity extends AppCompatActivity implements
                 getSupportFragmentManager().beginTransaction().replace(
                         R.id.fragment_container, new FragmentUsers()).commit();
                 break;
-            case R.id.project_option:
+            case R.id.company_option:
+                getSupportFragmentManager().beginTransaction().replace(
+                        R.id.fragment_container, new FragmentCompany()).commit();
                 break;
 
         }

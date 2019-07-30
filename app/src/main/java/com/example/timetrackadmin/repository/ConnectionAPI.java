@@ -1,5 +1,7 @@
 package com.example.timetrackadmin.repository;
 
+import com.example.timetrackadmin.model.CompList;
+import com.example.timetrackadmin.model.Company;
 import com.example.timetrackadmin.model.UsersList;
 import com.example.timetrackadmin.model.User;
 
@@ -20,25 +22,32 @@ import retrofit2.http.Query;
 
 public interface ConnectionAPI {
 
-    String RegUrl = "http://172.17.20.170:8080/api/user/";
+    String RegUrl = "http://172.17.20.170:8080/api/";
 
-    @POST("register")
+    @POST("user/register")
     Call<User> registerUser(@Body User user);
 
-    @POST("login")
+    @POST("user/login")
     @Headers("Content-Type:application/json")
     Call<User> loginUser(@Body RequestBody requestBody);
 
-    @GET("{id}")
+    @GET("user/getemp/{id}")
     Call<User> getUser(@HeaderMap HashMap<String, String> header, @Path("id") String id);
 
-    @PUT("{id}")
+    @PUT("user/{id}")
     Call<User> updateUser(@HeaderMap HashMap<String, String> header, @Path("id") String id, @Body User user);
 
-    @DELETE("delete/{id}")
+    @DELETE("user/delete/{id}")
     Call<User> deleteUser(@HeaderMap HashMap<String, String> header,@Path("id") String id);
 
-    @GET("all")
+    @GET("user/all")
     Call<ArrayList<UsersList>> getUsers(@HeaderMap HashMap<String, String> header);
+
+
+    @POST("company/addcompany")
+    Call<Company> addCompany(@Body Company company);
+
+    @GET("company/allcompany")
+    Call<ArrayList<CompList>> getCompanys(@HeaderMap HashMap<String, String> header);
 
 }

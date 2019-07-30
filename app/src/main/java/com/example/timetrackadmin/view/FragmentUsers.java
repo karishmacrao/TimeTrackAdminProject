@@ -3,6 +3,8 @@ package com.example.timetrackadmin.view;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -37,7 +39,14 @@ public class FragmentUsers extends androidx.fragment.app.Fragment {
     ConnectionAPI api;
     HashMap<String, String> header;
 
-     @Nullable
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_users, container, false);
@@ -46,19 +55,20 @@ public class FragmentUsers extends androidx.fragment.app.Fragment {
         userRecyclerView.setHasFixedSize(true);
         api = ServerConnection.getConnection();
         getAllUsers();
-        sv=(SearchView)view.findViewById(R.id.mSearch);
-         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-             @Override
-             public boolean onQueryTextSubmit(String query) {
-                 return false;
-             }
+        sv = (SearchView) view.findViewById(R.id.mSearch);
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                usersAdapter.getFilter().filter(query);
+                return true;
+            }
 
-             @Override
-             public boolean onQueryTextChange(String newText) {
-                 usersAdapter.getFilter().filter(newText);
-                 return false;
-             }
-         });
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                usersAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
         return view;
     }
 
@@ -95,11 +105,18 @@ public class FragmentUsers extends androidx.fragment.app.Fragment {
         // call the constructor of UsersAdapter to send the reference and data to Adapter
         usersAdapter = new UsersAdapter(usersListResponse, view.getContext());
         userRecyclerView.setAdapter(usersAdapter); // set the Adapter to RecyclerView
+        usersAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getAllUsers();
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
