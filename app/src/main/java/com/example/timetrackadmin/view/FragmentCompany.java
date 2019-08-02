@@ -20,6 +20,8 @@ import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,8 +42,10 @@ public class FragmentCompany extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Toolbar toolbar= (Toolbar)((AppCompatActivity) getActivity()).findViewById(R.id.comp_recyclerview);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle("All Companies");
         setHasOptionsMenu(true);
+
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,7 +54,6 @@ public class FragmentCompany extends Fragment {
         companyRecyclerView = (RecyclerView) view.findViewById(R.id.comp_recyclerview);
         companyRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         companyRecyclerView.setHasFixedSize(true);
-
 
         api = ServerConnection.getConnection();
         getAllCompanys();

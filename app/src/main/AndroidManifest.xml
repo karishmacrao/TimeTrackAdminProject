@@ -16,7 +16,8 @@
         android:roundIcon="@drawable/splashback"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.AddCompanyActivity"></activity>
+        <activity android:name=".view.ViewSingleCompany"></activity>
+        <activity android:name=".view.AddCompanyActivity" />
         <activity android:name=".view.ViewSingleUser" />
         <activity
             android:name=".view.RegisterActivity"

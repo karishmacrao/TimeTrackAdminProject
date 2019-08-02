@@ -38,16 +38,19 @@ public interface ConnectionAPI {
     Call<User> updateUser(@HeaderMap HashMap<String, String> header, @Path("id") String id, @Body User user);
 
     @DELETE("user/delete/{id}")
-    Call<User> deleteUser(@HeaderMap HashMap<String, String> header,@Path("id") String id);
+    Call<User> deleteUser(@HeaderMap HashMap<String, String> header, @Path("id") String id);
 
     @GET("user/all")
     Call<ArrayList<UsersList>> getUsers(@HeaderMap HashMap<String, String> header);
 
 
     @POST("company/addcompany")
-    Call<Company> addCompany(@Body Company company);
+    Call<Company> addCompany(@HeaderMap HashMap<String, String> header, @Body Company company);
 
     @GET("company/allcompany")
     Call<ArrayList<CompList>> getCompanys(@HeaderMap HashMap<String, String> header);
+
+    @DELETE("company/delete/{id}")
+    Call<Company> deleteCompany(@HeaderMap HashMap<String, String> header, @Path("id") String id);
 
 }

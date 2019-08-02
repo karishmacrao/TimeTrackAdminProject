@@ -1,42 +1,52 @@
 package com.example.timetrackadmin.view;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.timetrackadmin.R;
+import com.example.timetrackadmin.UsersAdapter;
 import com.example.timetrackadmin.model.User;
 import com.example.timetrackadmin.repository.ConnectionAPI;
 import com.example.timetrackadmin.repository.ServerConnection;
 import com.example.timetrackadmin.repository.SharedPreferenceConfig;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentMyAccount extends Fragment {
+public class FragmentMyAccount extends Fragment implements SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
 
     TextInputEditText FName, LName, Email, Pass;
     MaterialButton myUpdateBtn;
     String username, id;
     View view;
+    UsersAdapter usersAdapter;
     SharedPreferenceConfig obj = SharedPreferenceConfig.getInstance();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -44,6 +54,7 @@ public class FragmentMyAccount extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_myaccount, container, false);
+        Objects.requireNonNull(((AppCompatActivity) view.getContext()).getSupportActionBar()).setSubtitle("My Account");
         FName = (TextInputEditText) view.findViewById(R.id.myFNameId);
         LName = (TextInputEditText) view.findViewById(R.id.myLNameId);
         Email = (TextInputEditText) view.findViewById(R.id.myEmail);
@@ -92,7 +103,7 @@ public class FragmentMyAccount extends Fragment {
             ConnectionAPI api = ServerConnection.getConnection();
             final User userObj = new User();
 
-            userObj.setFirstName(firstname);
+//            userObj.setFirstName(firstname);
             userObj.setLastName(lastname);
             userObj.setEmail(companyemail);
             userObj.setPassword(password);
@@ -121,5 +132,36 @@ public class FragmentMyAccount extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.search_action);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("Search");
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        SearchManager searchManager = (SearchManager) view.getContext().getSystemService(Context.SEARCH_SERVICE);
+        return false;
+    }
+
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        return false;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        return false;
     }
 }

@@ -5,8 +5,4 @@
         android:id="@+id/logout"
         android:title="Logout"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/add_user"
-        android:title="Add User"
-        app:showAsAction="never" />
 </menu>

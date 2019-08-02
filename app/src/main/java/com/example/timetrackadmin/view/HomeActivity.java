@@ -88,9 +88,6 @@ public class HomeActivity extends AppCompatActivity implements
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;
-            case R.id.add_user:
-                startActivity(new Intent(this, RegisterActivity.class));
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -1,12 +1,15 @@
 package com.example.timetrackadmin;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.timetrackadmin.model.CompList;
+import com.example.timetrackadmin.view.ViewSingleCompany;
 
 import java.util.ArrayList;
 
@@ -33,11 +36,22 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final CompList item = allCompanyList.get(position);
 
         holder.myCompName.setText(item.getCompanyName());
         holder.myLoc.setText(item.getLocation());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ViewSingleCompany.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", allCompanyList.get(position).getId());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

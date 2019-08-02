@@ -15,6 +15,17 @@ public class Company {
     @SerializedName("companyId")
     public String companyCode;
 
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -23,9 +34,11 @@ public class Company {
     public String getId() {
         return id;
     }
+
     public String getLocation() {
         return location;
     }
+
     public String getCompanyCode() {
         return companyCode;
     }

@@ -1,10 +1,12 @@
 package com.example.timetrackadmin.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,12 +16,15 @@ import com.example.timetrackadmin.model.UsersList;
 import com.example.timetrackadmin.repository.ConnectionAPI;
 import com.example.timetrackadmin.repository.ServerConnection;
 import com.example.timetrackadmin.repository.SharedPreferenceConfig;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,23 +55,20 @@ public class FragmentUsers extends androidx.fragment.app.Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_users, container, false);
+
+        Objects.requireNonNull(((AppCompatActivity) view.getContext()).getSupportActionBar()).setSubtitle("All Users");
+
         userRecyclerView = (RecyclerView) view.findViewById(R.id.users_recyclerview);
         userRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         userRecyclerView.setHasFixedSize(true);
         api = ServerConnection.getConnection();
         getAllUsers();
-        sv = (SearchView) view.findViewById(R.id.mSearch);
-        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        FloatingActionButton btnAdduser = (FloatingActionButton) view.findViewById(R.id.btnAddUser);
+        btnAdduser.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                usersAdapter.getFilter().filter(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                usersAdapter.getFilter().filter(newText);
-                return true;
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), RegisterActivity.class);
+                view.getContext().startActivity(intent);
             }
         });
         return view;
@@ -114,9 +116,23 @@ public class FragmentUsers extends androidx.fragment.app.Fragment {
         getAllUsers();
 
     }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.search_action);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        searchView.setQueryHint("Search");
         super.onCreateOptionsMenu(menu, inflater);
     }
 }
