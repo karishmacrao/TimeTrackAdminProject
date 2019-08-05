@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.example.timetrackadmin.R;
 import com.example.timetrackadmin.repository.SharedPreferenceConfig;
+import com.example.timetrackadmin.view.company.FragmentCompany;
+import com.example.timetrackadmin.view.user.FragmentMyAccount;
+import com.example.timetrackadmin.view.user.FragmentUsers;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity implements

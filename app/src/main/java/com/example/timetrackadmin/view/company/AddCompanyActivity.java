@@ -1,4 +1,4 @@
-package com.example.timetrackadmin.view;
+package com.example.timetrackadmin.view.company;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

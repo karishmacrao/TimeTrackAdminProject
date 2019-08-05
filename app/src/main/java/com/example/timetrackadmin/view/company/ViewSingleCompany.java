@@ -1,4 +1,4 @@
-package com.example.timetrackadmin.view;
+package com.example.timetrackadmin.view.company;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,82 +13,45 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.timetrackadmin.R;
-import com.example.timetrackadmin.model.User;
+import com.example.timetrackadmin.model.Company;
+import com.example.timetrackadmin.model.Project;
 import com.example.timetrackadmin.repository.ConnectionAPI;
 import com.example.timetrackadmin.repository.ServerConnection;
 import com.example.timetrackadmin.repository.SharedPreferenceConfig;
 
 import java.util.HashMap;
 
-public class ViewSingleUser extends AppCompatActivity {
+public class ViewSingleCompany extends AppCompatActivity {
     String id;
-    TextView name, email;
-    ImageView pic;
-    SharedPreferenceConfig obj;
     ConnectionAPI api;
     HashMap<String, String> header;
+    SharedPreferenceConfig obj = SharedPreferenceConfig.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_single_user);
+        setContentView(R.layout.activity_single_company_view);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.suv_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        obj = SharedPreferenceConfig.getInstance();
-
-        final Bundle bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         id = bundle.getString("id");
+        Log.d("ViewSingleCompany: ",id);
 
-        name = (TextView) findViewById(R.id.suv_nameid);
-        email = (TextView) findViewById(R.id.suv_emailid);
-        pic = (ImageView) findViewById(R.id.suv_pic);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.company_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Company");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        api = ServerConnection.getConnection();
-        header = new HashMap<>();
-        header.put("authorization", obj.readToken());
-        Call<User> call = api.getUser(header, id);
-        call.enqueue(new Callback<User>() {
-
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    Log.d("Response: ", response.body().toString());
-                    name.setText(response.body().getFirstName());
-                    email.setText(response.body().getEmail());
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.d("Failue", t.toString());
-
-            }
-        });
-    }
-
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.singleview_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -98,8 +61,8 @@ public class ViewSingleUser extends AppCompatActivity {
         }
         if (id == R.id.delete_id) {
             customDialog(
-                    "Delete user permanently",
-                    "Do you want to delete user record permanently?",
+                    "Delete Company permanently",
+                    "Do you want to delete Company record permanently with its project?",
                     "Cancel",
                     "Ok");
         }
@@ -124,7 +87,8 @@ public class ViewSingleUser extends AppCompatActivity {
         builderSingle.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                deleteuserpermanently();
+                deletecompanypermanently();
+                deleteAllProjectWithCompany();
                 toast("Deleted successfully!");
                 finish();
             }
@@ -135,17 +99,38 @@ public class ViewSingleUser extends AppCompatActivity {
     public void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
-    public void deleteuserpermanently(){
-        Call<User> call = api.deleteUser(header, id);
-        call.enqueue(new Callback<User>(){
 
+    private void deletecompanypermanently() {
+        header = new HashMap<>();
+        header.put("authorization", obj.readToken());
+        api= ServerConnection.getConnection();
+        Call<Company> call = api.deleteCompany(header, id);
+        call.enqueue(new Callback<Company>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Company> call, Response<Company> response) {
 
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Company> call, Throwable t) {
+
+            }
+        });
+
+    }
+    private void deleteAllProjectWithCompany(){
+        header = new HashMap<>();
+        header.put("authorization", obj.readToken());
+        api= ServerConnection.getConnection();
+        Call<Project> call = api.deleteAllProjectOfCompany(header);
+        call.enqueue(new Callback<Project>() {
+            @Override
+            public void onResponse(Call<Project> call, Response<Project> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Project> call, Throwable t) {
 
             }
         });

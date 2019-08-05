@@ -1,4 +1,4 @@
-package com.example.timetrackadmin.view;
+package com.example.timetrackadmin.view.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.timetrackadmin.R;
-import com.example.timetrackadmin.UsersAdapter;
 import com.example.timetrackadmin.model.UsersList;
 import com.example.timetrackadmin.repository.ConnectionAPI;
 import com.example.timetrackadmin.repository.ServerConnection;

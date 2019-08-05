@@ -1,10 +1,8 @@
 package com.example.timetrackadmin.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -16,13 +14,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.timetrackadmin.R;
 import com.example.timetrackadmin.model.User;
 import com.example.timetrackadmin.repository.ConnectionAPI;
 import com.example.timetrackadmin.repository.ServerConnection;
 import com.example.timetrackadmin.repository.SharedPreferenceConfig;
+import com.example.timetrackadmin.view.user.RegisterActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 

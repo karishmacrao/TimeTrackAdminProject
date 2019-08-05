@@ -1,4 +1,4 @@
-package com.example.timetrackadmin.view;
+package com.example.timetrackadmin.view.company;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.timetrackadmin.CompanyAdapter;
 import com.example.timetrackadmin.R;
 import com.example.timetrackadmin.model.CompList;
 import com.example.timetrackadmin.repository.ConnectionAPI;

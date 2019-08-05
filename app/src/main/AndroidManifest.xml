@@ -16,11 +16,11 @@
         android:roundIcon="@drawable/splashback"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ViewSingleCompany"></activity>
-        <activity android:name=".view.AddCompanyActivity" />
-        <activity android:name=".view.ViewSingleUser" />
+        <activity android:name=".view.company.ViewSingleCompany"></activity>
+        <activity android:name=".view.company.AddCompanyActivity" />
+        <activity android:name=".view.user.ViewSingleUser" />
         <activity
-            android:name=".view.RegisterActivity"
+            android:name=".view.user.RegisterActivity"
             android:parentActivityName=".view.LoginActivity" />
         <activity android:name=".view.HomeActivity" />
         <activity android:name=".view.LoginActivity" />

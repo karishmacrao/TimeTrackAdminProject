@@ -1,4 +1,4 @@
-package com.example.timetrackadmin.view;
+package com.example.timetrackadmin.view.user;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.timetrackadmin.R;
-import com.example.timetrackadmin.UsersAdapter;
 import com.example.timetrackadmin.model.User;
 import com.example.timetrackadmin.repository.ConnectionAPI;
 import com.example.timetrackadmin.repository.ServerConnection;
@@ -21,7 +20,6 @@ import com.example.timetrackadmin.repository.SharedPreferenceConfig;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -103,7 +101,7 @@ public class FragmentMyAccount extends Fragment implements SearchView.OnQueryTex
             ConnectionAPI api = ServerConnection.getConnection();
             final User userObj = new User();
 
-//            userObj.setFirstName(firstname);
+            userObj.setFirstName(firstname);
             userObj.setLastName(lastname);
             userObj.setEmail(companyemail);
             userObj.setPassword(password);

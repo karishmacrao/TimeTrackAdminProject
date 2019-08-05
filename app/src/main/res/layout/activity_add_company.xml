@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:padding="16dp"
-        tools:context=".view.AddCompanyActivity">
+        tools:context=".view.company.AddCompanyActivity">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutCode"

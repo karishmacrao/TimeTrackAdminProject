@@ -2,6 +2,7 @@ package com.example.timetrackadmin.repository;
 
 import com.example.timetrackadmin.model.CompList;
 import com.example.timetrackadmin.model.Company;
+import com.example.timetrackadmin.model.Project;
 import com.example.timetrackadmin.model.UsersList;
 import com.example.timetrackadmin.model.User;
 
@@ -52,5 +53,22 @@ public interface ConnectionAPI {
 
     @DELETE("company/delete/{id}")
     Call<Company> deleteCompany(@HeaderMap HashMap<String, String> header, @Path("id") String id);
+
+
+    @POST("project/addproject")
+    Call<Project> addproject(@HeaderMap HashMap<String, String> header, @Body Project project);
+
+    @GET("project/allproject")
+    Call<ArrayList<Project>> getAllProject(@HeaderMap HashMap<String, String> header);
+
+    @DELETE("project/delete/{id}")
+    Call<Project> deleteProject(@HeaderMap HashMap<String, String> header, @Path("id") String id);
+
+    @DELETE("project/deleteall")
+    Call<Project> deleteAllProjectOfCompany(@HeaderMap HashMap<String, String> header);
+
+    @GET("project/getproject/{id}")
+    Call<ArrayList<Project>> getProject(@HeaderMap HashMap<String, String> header);
+
 
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ViewSingleCompany">
+    tools:context=".view.company.ViewSingleCompany">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/company_toolbar"
@@ -15,4 +15,38 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/companyNameId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="comapny name"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/company_toolbar" />
+
+    <TextView
+        android:id="@+id/companyLocId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="location"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyNameId" />
+
+    <ExpandableListView
+        android:id="@+id/projectList"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyLocId" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addNewProject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimaryDarkerGreen"
+        android:text="Add new project"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/projectList" />
 </androidx.constraintlayout.widget.ConstraintLayout>

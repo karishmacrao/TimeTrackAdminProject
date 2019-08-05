@@ -1,4 +1,4 @@
-package com.example.timetrackadmin;
+package com.example.timetrackadmin.view.company;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.timetrackadmin.R;
 import com.example.timetrackadmin.model.CompList;
-import com.example.timetrackadmin.view.ViewSingleCompany;
 
 import java.util.ArrayList;
 

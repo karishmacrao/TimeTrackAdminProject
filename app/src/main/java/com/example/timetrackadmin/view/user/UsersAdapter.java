@@ -1,4 +1,4 @@
-package com.example.timetrackadmin;
+package com.example.timetrackadmin.view.user;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.example.timetrackadmin.R;
 import com.example.timetrackadmin.model.UsersList;
-import com.example.timetrackadmin.view.ViewSingleUser;
 
 import java.util.ArrayList;
 
